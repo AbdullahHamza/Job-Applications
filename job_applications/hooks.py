@@ -7,6 +7,25 @@ app_description = "Handeling job applications"
 app_email = "abhamza213@gmail.com"
 app_license = "MIT"
 
+
+required_apps = ["erpnext", "hrms"]
+
+
+fixtures = [
+                "Role", {"dt": "DocType", "filters": [
+                ["name", "in", ["HR Manager", "Job Applicant"],]]},
+
+                "Custom DocPerm", {"dt": "DocType", "filters": [
+                ["role", "in", ["HR Manager"],]]},
+        ]
+
+
+doc_events = {
+	"User" :{
+		"after_insert": "job_applications.controllers.user.assgin_role_on_submit"
+	}
+}
+
 # Includes in <head>
 # ------------------
 
